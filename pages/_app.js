@@ -1,17 +1,22 @@
-import App, {Container} from 'next/app'
-import React from 'react'
-import withApolloClient from '../lib/with-apollo-client'
-import { ApolloProvider } from 'react-apollo'
+import App, { Container } from "next/app"
+import { ApolloProvider } from "react-apollo"
+import withApollo from "../lib/withApollo"
 
 class MyApp extends App {
-  render () {
-    const {Component, pageProps, apolloClient} = this.props
-    return <Container>
-      <ApolloProvider client={apolloClient}>
-        <Component {...pageProps} />
-      </ApolloProvider>
-    </Container>
+  render() {
+    const { Component, pageProps, apollo } = this.props
+
+    console.log("XXXXXXXX apollo.store.cache.data.data XXXXXXXX")
+    console.table(apollo.store.cache.data.data)
+
+    return (
+      <Container>
+        <ApolloProvider client={apollo}>
+          <Component {...pageProps} />
+        </ApolloProvider>
+      </Container>
+    )
   }
 }
 
-export default withApolloClient(MyApp)
+export default withApollo(MyApp)
